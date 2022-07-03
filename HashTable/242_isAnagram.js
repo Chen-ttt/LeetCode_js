@@ -3,6 +3,8 @@
  * @param {string} s 
  * @param {string} t 
  * @returns {boolean}
+ * 时间复杂度 O(n) n为s的长度
+ * 空间复杂度 O(S) S为字符集的大小,此处S=26
  */
 
 var isAnagram = function(s, t) {
