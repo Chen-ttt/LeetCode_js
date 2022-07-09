@@ -10,7 +10,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  * 
- * 时间复杂度 O(n) n为结点数, 只需要遍历一遍列表
+ * 时间复杂度 O(n) n为结点数
  * 空间复杂度 O(1) 只要常数空间存放快慢指针
  */
 
