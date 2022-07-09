@@ -3,6 +3,9 @@
  * @param {number[]} nums1
  * @param {number[]} nums2
  * @return {number}
+ * 
+ * 时间复杂度 O(m+n) T((m+n)/2)
+ * 空间复杂度 O(m+n) T((m+n)/2)
  */
 
 // 归并排序思想
