@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: Tong Chen
  * @Date: 2022-07-21 18:39:10
- * @LastEditTime: 2022-07-21 18:45:41
+ * @LastEditTime: 2022-07-22 19:39:38
  * @LastEditors:  
  */
 /**
@@ -15,7 +15,7 @@
  * 思想: 链表A的不重合部分长度为a, 链表B的不重合部分长度为b, 公共部分长度为c
  *      则a走到公共点时走了a+c+b, b走了b+c+a, 两指针会在同一时刻走到公共节点
  * 
- *      若两链表不重合, 则在a指针走了a+b, b走了b+a时, 两指针在链表尾部null相遇
+ *      若两链表不重合, 则在a指针走了a+b, b走了b+a时, 两指针分别指向当时所在链表尾部null
  * 
  * !!! 方法总结: 对于链表中公共节点的问题, 核心是算出两个指针什么情况下移动的长度一样, 即什么时候相遇
  *              环形链表的入口问题也是一样的道理
@@ -27,6 +27,7 @@ var getIntersectionNode = function (headA, headB) {
   if (headA == null || headB == null) return null
   var pA = headA,
     pB = headB
+  // 每次走一步, 如果走到链表尾部, 交换到另一条链表上遍历
   while (pA !== pB) {
     pA = pA === null ? headB : pA.next // 走到头, 则换条跑道走
     pB = pB === null ? headA : pB.next
