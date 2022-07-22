@@ -2,13 +2,17 @@
  * @Description: 
  * @Author: Tong Chen
  * @Date: 2022-07-22 16:36:11
- * @LastEditTime: 2022-07-22 16:36:42
+ * @LastEditTime: 2022-07-22 16:59:55
  * @LastEditors:  
  */
 /**
  * 27.判断回文链表
  * @param {ListNode} head
  * @return {boolean}
+ * 
+ * 双指针
+ * 时间复杂度 O(n)
+ * 空间复杂度 O(1)
  */
 
 // 链表反转
