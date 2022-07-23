@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: Tong Chen
  * @Date: 2022-07-22 20:23:20
- * @LastEditTime: 2022-07-22 20:29:13
+ * @LastEditTime: 2022-07-23 16:26:41
  * @LastEditors:  
  */
 /**
@@ -53,6 +53,14 @@ var addTwoNumbers = function (l1, l2) {
     newl1 = newl1.next
     newl2 = newl2.next
   }
+
+  // !!!注意以下两部分可以优化成一个calRemain函数, 用三元表达式调用, 只需要注意两链表长度一样的情况
+  /**
+   * if(!newl1 && !newl2) return newNode;
+   * else{
+   *    return newl1 === null ? calRemain(newl2, add, prevNode) : calRemain(newl1, add, prevNode);
+    }
+   */
 
   // 当链表1还有剩余部分
   while (newl1) {
