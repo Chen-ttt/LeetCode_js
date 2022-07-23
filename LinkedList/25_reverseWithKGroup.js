@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: Tong Chen
  * @Date: 2022-07-22 18:51:32
- * @LastEditTime: 2022-07-22 19:02:54
+ * @LastEditTime: 2022-07-23 15:57:04
  * @LastEditors:  
  */
 /**
@@ -13,41 +13,46 @@
  */
 
 // 判断是否还有k个元素可供反转
-var isEnough = function (head, k) {
+var checkEnough = function (head, k) {
   for (let i = 0; i < k; i++) {
     if (!head) return false
-    else head = head.next
+    head = head.next
   }
   return true
 }
 
-// 反转函数
-var reverse = function (head, k) {
+var reverseK = function (head, k) {
   var prev = null,
     cur = head,
     next = null
-  for (let i = 0; i < k; i++) {
+  for (let i = 0; i < k; i++) { // 反转k个节点, 则只循环k次
     next = cur.next
-    if (i === k - 1) {
-      // 必须在反转最后一个元素的时候, 将下一组的头元素存下来, 不然反转之后会丢失后面的链表
-      var nextFirstNode = cur.next
-    }
     cur.next = prev
     prev = cur
     cur = next
   }
-  return [prev, nextFirstNode] // [新的头节点, 下一组头节点]
+  // for循环停止时, prev为反转后的新头节点, cur为剩余链表的头节点, 需要被传回进行下一组反转, 不然就丢了
+  return [prev, cur]
 }
 
-var reverseKGroup = function (head, k) {
-  var dummy = new ListNode(-1) // 设置哑节点
-  var prev = dummy // 指向哑节点的指针
-  while (isEnough(head, k)) {
-    [newFront, nextFirstNode] = reverse(head, k)
-    prev.next = newFront // 将反转后, 子链表新的头节点接入链表
-    prev = head // 为下一次反转子链表做准备, prev永远指向下一组子链表的前一个节点, 即当前子链表反转之前的头节点, 反转之后的尾节点
-    head = nextFirstNode // head指针永远指向下一组子链表的头节点
+function reverseKGroup (head, k) {
+  var dummy = new ListNode(-1) // 必须设置哑节点, 因为头节点会变
+  dummy.next = head
+  // 注意: 这句的作用是避免k大于链表长度的情况, 如果没有这句, 输入{1}, k=2时, 程序不执行while循环, 输出将为{}
+  // 在其他正常测试用例下, dummy.next将被反转后的新的头节点覆盖
+
+  var prevNode = dummy
+  var newFrontNode = null,
+    nextHead = null
+  while (checkEnough(head, k)) { // 链表后面还有k个元素可反转, 则进入循环
+    [newFrontNode, nextHead] = reverseK(head, k)
+    prevNode.next = newFrontNode // 反转后, 主链表需要接入新的头节点
+    // 为下一次反转做准备
+    prevNode = head // prevNode永远指向反转区的前一个节点, 用于反转后接入新的头节点
+    head = nextHead // head永远指向下一个待反转区的头节点
   }
-  prev.next = nextFirstNode // 将剩余不足k的子链表接入主链表
+
+  // 若上次反转后传回的剩余子链表的头节点仍有值, 则需要将剩下不足k的子链表接入主链表
+  if (nextHead) prevNode.next = nextHead
   return dummy.next
 }
