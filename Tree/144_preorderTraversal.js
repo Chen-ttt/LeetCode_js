@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: Tong Chen
  * @Date: 2022-07-24 16:48:14
- * @LastEditTime: 2022-07-24 17:13:52
+ * @LastEditTime: 2022-07-24 17:17:33
  * @LastEditors:  
  */
 /**
@@ -39,6 +39,9 @@ var preorderTraversal = function (root) {
 
 // 2. 迭代
 // JS中就用数组当栈用!
+// 时间O(N)
+// 空间 平均情况O(logN) 和递归一样, 因为有显式栈的开销
+//     最坏情况O(N)
 var preorderTraversal = function (root) {
   let result = []
   if (!root) return result
