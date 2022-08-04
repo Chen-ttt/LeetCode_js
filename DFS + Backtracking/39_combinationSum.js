@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: Tong Chen
  * @Date: 2022-08-04 14:42:46
- * @LastEditTime: 2022-08-04 14:42:55
+ * @LastEditTime: 2022-08-04 17:18:07
  * @LastEditors:  
  */
 /**
@@ -16,23 +16,26 @@ var combinationSum = function (candidates, target) {
     sum = 0
   const length = candidates.length
 
+  candidates.sort((a, b) => a - b)
+  // console.log(candidates)
+
   let dfs = (path, start) => {
-    // console.log(start, path)
-    if (sum >= target) { // 递归出口
-      // console.log("return")
+    if (sum >= target) {
       if (sum === target) result.push([...path])
       return
     }
 
     for (let i = start; i < length; i++) {
-      sum += candidates[i]
+      if (sum + candidates[i] > target) break
       path.push(candidates[i])
+      sum += candidates[i]
 
       dfs(path, i)
 
-      sum -= candidates[i]
       path.pop()
+      sum -= candidates[i]
     }
+
   }
 
   dfs([], 0)
