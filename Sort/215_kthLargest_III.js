@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: Tong Chen
+ * @Date: 2022-07-08 19:03:11
+ * @LastEditTime: 2022-08-24 22:07:57
+ * @LastEditors:  
+ */
 /**
  * 215.数组中第k个最大元素
  * @param {number[]} nums
@@ -9,42 +16,44 @@
  */
 
 // 快速排序 -> 快速选择 -> 随机快排
-function partition(nums, left, right){
-    var ran = Math.floor(Math.random()*(right-left+1) + left);
-    var key = nums[ran],
-        temp = 0;
-    console.log("选择区间", left, right);
-    console.log("选择结果", nums, ran, key);
-    while(left < right){
-        while(nums[right] > key) right--;
-        while(nums[left] <= key) left++;
-        if(left < right){
-            temp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = temp;
-        }
+function partition (arr, left, right) {
+  const ranIndex = Math.floor(Math.random() * (right - left + 1) + left)
+  const key = arr[ranIndex]
+
+  while (left < right) {
+    while (arr[right] > key) right--
+    while (arr[left] <= key) left++
+
+    if (left < right) {
+      [arr[left], arr[right]] = [arr[right], arr[left]]
     }
-    temp = nums[nums.indexOf(key)];
-    nums[nums.indexOf(key)] = nums[right];
-    nums[right] = temp;
-    return right;
+  }
+
+  let idx = arr.indexOf(key)
+  // Note. idx和right相同时不能这样换, 会报错
+  if (idx !== right) [arr[idx], arr[right]] = [arr[right], arr[idx]]
+  return right
 }
 
-function sort(nums, start, end, k){
-    console.log(k);
-    if(start > end) return;
-    var p = partition(nums, start, end);
+function quickSort (arr, start, end, kIndex) {
+  if (start === end) return start
+  if (start > end) return
+  const p = partition(arr, start, end)
 
-    if(p == k) return;
-    else if(p > k) sort(nums, start, p-1, k);
-    else sort(nums, p+1, end, k);
+  if (p === kIndex) return p
+  if (p > kIndex) {
+    // sort prev part
+    return quickSort(arr, start, p - 1, kIndex)
+  } else {
+    // sort later part
+    return quickSort(arr, p + 1, end, kIndex)
+  }
 }
 
-var findKthLargest = function(nums, k) {
-    sort(nums, 0, nums.length-1, nums.length-k);
-    console.log(nums);
-    return nums[nums.length-k];
-};
+var findKthLargest = function (nums, k) {
+  const index = quickSort(nums, 0, nums.length - 1, nums.length - k)
+  return nums[index]
+}
 
-var nums = [7,6,5,4,3,2,1];
-console.log(findKthLargest(nums, 5));
+var nums = [7, 6, 5, 4, 3, 2, 1]
+console.log(findKthLargest(nums, 5))
