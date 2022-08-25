@@ -55,3 +55,44 @@ var isSubtree = function (root, subRoot) {
   //    b. 进入过dfs, 但匹配失败时, flag会被设置为false
   return flag
 }
+
+/*
+ * @Description: Recursion
+ * @Author: Yutong Sheng
+ */
+/**
+ * 572.另一棵树的子树
+ * @param {TreeNode} root
+ * @param {TreeNode} subRoot
+ * @return {boolean}
+ */
+var isSubtree = function(root, subRoot) {
+    //比较两棵树是否相等
+    const compare = (root,subRoot) =>{
+       if(root === null && subRoot === null) return true
+       else if(root === null && subRoot !== null) return false
+       else if(root !== null && subRoot === null) return false
+       else if(root.val !== subRoot.val) return false
+
+       let leftSame = compare(root.left,subRoot.left)
+       let rightSame = compare(root.right,subRoot.right)
+       return leftSame && rightSame
+    }
+    //前序遍历主树
+    const traversal = (root) =>{
+        if(!root) return
+        //比较两棵树，看是否相等
+        if(compare(root,subRoot)) return true
+        //若不相等，进入其左子树继续比较
+        let resultLeft = traversal(root.left)
+        if(resultLeft) return true
+        //若左子树不相等，则进入其右子树继续比较
+        let resultRight = traversal(root.right)
+        if(resultRight) return true
+        //都不相等，返回false
+        return false
+
+    }
+    if(traversal(root)) return true
+    return false
+};
