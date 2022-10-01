@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: Tong Chen
  * @Date: 2022-09-18 02:17:36
- * @LastEditTime: 2022-09-18 02:17:38
+ * @LastEditTime: 2022-09-18 02:19:37
  * @LastEditors:  
  */
 /**
@@ -18,11 +18,11 @@ var minPathSum = function (grid) {
   dp[0][0] = grid[0][0]
 
 
-  for (let i = 1; i < row; i++) {
+  for (let i = 1; i < row; i++) { // 单独考虑左边界
     dp[i][0] = grid[i][0] + dp[i - 1][0]
   }
 
-  for (let i = 1; i < col; i++) {
+  for (let i = 1; i < col; i++) { // 单独考虑上边界
     dp[0][i] = grid[0][i] + dp[0][i - 1]
   }
 
