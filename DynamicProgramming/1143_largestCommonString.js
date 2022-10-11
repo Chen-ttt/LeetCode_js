@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: Tong Chen
  * @Date: 2022-07-28 17:03:36
- * @LastEditTime: 2022-07-28 17:36:45
+ * @LastEditTime: 2022-10-11 22:48:38
  * @LastEditors:  
  */
 /**
@@ -39,7 +39,8 @@ var longestCommonSubsequence = function (text1, text2) {
   return arr[arr.length - 1][arr[0].length - 1]
 }
 
-// 2. 队列维护 - 可降低空间复杂度, 但用队列存取数据, 时间复杂度提高
+// 2. 队列维护
+// 可降低空间复杂度, 但用队列存取数据, 时间复杂度提高
 longestCommonSubsequence = function (text1, text2) {
   var arr = new Array(text2.length + 2).fill(0)
 
